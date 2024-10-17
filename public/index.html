@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mint POAP Token</title>
+</head>
+
+<body>
+    <h1>Mint POAP Token</h1>
+
+    <!-- MetaMask Connect Section -->
+    <div>
+        <p id="account">Not connected</p>
+        <p id="walletBalance">Balance: --</p>
+    </div>
+
+    <!-- Form to Mint POAP Token -->
+    <form id="mint-form">
+        <input type="text" id="attendee-address" placeholder="Enter your Ethereum address" required>
+        <button type="button" id="mint-button">Mint POAP</button> <!-- Changed type to "button" -->
+    </form>
+
+    <div id="result"></div>
+
+    <!-- Include Web3.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+    <script src="index.js"></script> <!-- Make sure the JS file is included -->
+</body>
+
+</html>

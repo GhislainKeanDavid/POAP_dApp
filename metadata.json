@@ -1,0 +1,16 @@
+{
+    "name": "POAP Certificate",
+    "description": "This is an NFT representing a Proof of Attendance Certificate.",
+    "image": "ipfs://QmXdyxg9YBM2EKHzSHXesETUE7WGnkCQdcV3rF9zZfL2wb",
+    "attributes": [
+      {
+        "trait_type": "Event",
+        "value": "Blockchain Conference 2024"
+      },
+      {
+        "trait_type": "Type",
+        "value": "Certificate"
+      }
+    ]
+  }
+  
