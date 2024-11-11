@@ -1,0 +1,19 @@
+{
+  "name": "2024 HAU Blockchain Event Attendance Certificate",
+  "description": "This NFT represents attendance for the 2024 HAU Blockchain Event.",
+  "image": "ipfs://QmaMnTgP8R2bQaqx83BiMzqiQRqDo9C7T2QV9inBE7p6Wy",
+  "attributes": [
+    {
+      "trait_type": "Recipient Name",
+      "value": "Lebron James"
+    },
+    {
+      "trait_type": "Event Date",
+      "value": "2024-10-18"
+    },
+    {
+      "trait_type": "Certificate ID",
+      "value": "815102"
+    }
+  ]
+}

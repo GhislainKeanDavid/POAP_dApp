@@ -553,7 +553,7 @@ const contractABI = [
 		"type": "function"
 	}
 ];
-const contractAddress = "0xD4e6161699A05DcfdD6Ac217e6CeA5Dbc77cca7B"; // Replace with your deployed contract address
+const contractAddress = "0x2aa85BD2c1356EF723290c7E7ccc580A1765d9d1"; // Replace with your deployed contract address
 
 window.onload = connectWallet;
 
@@ -589,53 +589,68 @@ async function connectWallet() {
 }
 
 // Function to mint POAP token
-async function mintPOAP() {
-    const attendeeAddress = document.getElementById('attendee-address').value;
-    const tokenURI = "https://gateway.pinata.cloud/ipfs/QmUCR38Hy7cDYPhPB4JectSUpWEg4k8BoSd6eYaNEpeaEL";
-
-    if (!web3.utils.isAddress(attendeeAddress)) {
-        alert('Please enter a valid Ethereum address');
-        return;
-    }
-
-    // Ensure the contract is initialized
-    if (!contract) {
-        alert('Contract not initialized.');
-        return;
-    }
-
+async function mintPOAP(attendeeAddress, metadataURI) {
     try {
         // Get gas price from the network
         const gasPrice = await web3.eth.getGasPrice();
-        
-        // Estimate gas limit for the mintPOAP function
-        const gasEstimate = await contract.methods.mintPOAP(attendeeAddress, tokenURI).estimateGas({ from: account });
 
-        // Call the mintPOAP function from the contract with legacy gas settings
-        const transaction = await contract.methods.mintPOAP(attendeeAddress, tokenURI).send({
+        // Estimate gas limit for the mintPOAP function
+        const gasEstimate = await contract.methods.mintPOAP(attendeeAddress, metadataURI).estimateGas({ from: account });
+
+        // Call the mintPOAP function from the contract
+        const transaction = await contract.methods.mintPOAP(attendeeAddress, metadataURI).send({
             from: account,
             gasPrice: gasPrice,  // Specify gas price explicitly
             gas: gasEstimate     // Provide gas estimate
         });
 
-        // Transaction success
         console.log(`POAP Token minted successfully! Transaction Hash: ${transaction.transactionHash}`);
 
-        // Query the current tokenCounter to get the latest Token ID
-        const tokenId = await contract.methods.tokenCounter().call();
-
-        // Convert BigInt to a string to remove the "n" and use it as Token ID
-        const tokenIdString = tokenId.toString();
-        console.log('Minted Token ID:', tokenId);
-
-        // Display the success message with the Token ID
-        alert(`POAP Token minted successfully! Token ID: ${tokenIdString}`);
     } catch (error) {
         console.error('Error minting POAP token:', error);
-        alert('Failed to mint POAP token: ' + error.message);
     }
 }
 
+// Function to mint certificate, upload it to IPFS, and mint POAP
+async function mintCertificateAndUpload(attendeeAddress, recipientName, eventDate) {
+    if (!attendeeAddress || !recipientName || !eventDate) {
+        alert('Please fill all fields');
+        return;
+    }
+
+    try {
+        // Step 1: Call the server API to generate the certificate and get the metadata URI
+        const response = await fetch('/api/generate-certificate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                recipientName,
+                eventDate
+            })
+        });
+
+        const data = await response.json();
+        const metadataURI = data.metadataURI;
+
+        // Step 2: Mint the NFT using the metadata URI
+        await mintPOAP(attendeeAddress, metadataURI);
+    } catch (error) {
+        console.error('Error minting certificate and uploading:', error);
+    }
+}
+
+// Event listener for the Mint button
+document.getElementById('mint-button').addEventListener('click', async function() {
+    const attendeeAddress = document.getElementById('attendee-address').value;
+    const recipientName = document.getElementById('attendee-name').value;
+    const eventDate = document.getElementById('event-date').value;
+
+    await mintCertificateAndUpload(attendeeAddress, recipientName, eventDate);
+});
+
+
 
 // Make sure to bind the mintPOAP function to the button click
-document.getElementById('mint-button').addEventListener('click', mintPOAP);
+// document.getElementById('mint-button').addEventListener('click', mintPOAP);

@@ -1,32 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2024 Blockchain Event</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mint POAP Token</title>
-</head>
+      body {
+        background-image: url('https://i.imgur.com/YJFFMEk.jpeg'); /* Direct image link */
+        background-size: cover; /* Ensures the image covers the whole background */
+        background-position: center; /* Centers the image */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        min-height: 100vh; /* Ensures the background covers the full viewport height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: #333;
+        padding: 20px;
+      }
 
-<body>
-    <h1>Mint POAP Token</h1>
+      .container {
+        background-color: #e6e1f9;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 2rem;
+        z-index: 1;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        color: #2b2b2b;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      .section-header {
+        font-size: 1.5rem;
+        color: #007bff;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 0.5rem;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      input[type="text"] {
+        padding: 0.8rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      input:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      }
+
+      button {
+        background-color: #007bff;
+        color: white;
+        padding: 0.8rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      button:disabled {
+        background-color: #aaa;
+        cursor: not-allowed;
+      }
+
+      #result {
+        margin-top: 1rem;
+        font-size: 1.1rem;
+        color: #28a745;
+        text-align: center;
+      }
+
+      .info-text {
+        font-size: 0.9rem;
+        color: #888;
+        margin-top: 0.5rem;
+      }
+
+      input[type="text"], input[type="date"] {
+      padding: 0.8rem;
+      margin-bottom: 1rem; /* Adjust this for spacing */
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      width: 100%;
+      }
+
+      input[type="date"] {
+        width: 100%; /* Ensure it's consistent with other input fields */
+        text-align: center; /* Center the text */
+      }
+      @media (max-width: 600px) {
+        .container {
+          padding: 1.5rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .section-header {
+          font-size: 1.2rem;
+        }
+
+        input,
+        button {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Page Header -->
+    <div class="container">
+      <h1>2024 Blockchain Event</h1>
 
     <!-- MetaMask Connect Section -->
-    <div>
+    <div class="container">
+      <h2 class="section-header">MetaMask Connection</h2>
+      <div>
         <p id="account">Not connected</p>
         <p id="walletBalance">Balance: --</p>
+      </div>
     </div>
 
     <!-- Form to Mint POAP Token -->
-    <form id="mint-form">
+    <div class="container">
+      <h2 class="section-header">Mint Your POAP Token</h2>
+      <form id="mint-form">
+        <!-- Ethereum Address Input -->
         <input type="text" id="attendee-address" placeholder="Enter your Ethereum address" required>
-        <button type="button" id="mint-button">Mint POAP</button> <!-- Changed type to "button" -->
+
+        <!-- Name of the attendee -->
+        <input type="text" id="attendee-name" placeholder="Enter your name" required>
+
+        <!-- Event date -->
+        <input type="date" id="event-date" placeholder="Select event date" required>
+
+        <!-- Mint button -->
+        <button type="button" id="mint-button">Mint POAP</button> <!-- Type is set to "button" -->
     </form>
 
     <div id="result"></div>
+    </div>
 
     <!-- Include Web3.js library -->
     <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
-    <script src="index.js"></script> <!-- Make sure the JS file is included -->
-</body>
+    <script src="index.js"></script>
+    <script>
+      // Web3.js connection logic to MetaMask
+      const mintButton = document.getElementById("mint-button");
 
+      document.addEventListener("DOMContentLoaded", async function () {
+        if (typeof window.ethereum !== "undefined") {
+          try {
+            const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+            document.getElementById("account").innerText = `Connected: ${accounts[0]}`;
+            
+            const balance = await ethereum.request({
+              method: "eth_getBalance",
+              params: [accounts[0], "latest"],
+            });
+
+            const etherValue = parseFloat(web3.utils.fromWei(balance, "ether")).toFixed(4);
+            document.getElementById("walletBalance").innerText = `Balance: ${etherValue} ETH`;
+
+            mintButton.disabled = false; // Enable minting once connected to MetaMask
+          } catch (error) {
+            console.error("MetaMask connection failed:", error);
+          }
+        } else {
+          alert("MetaMask is not installed. Please install it to use this DApp.");
+        }
+      });
+    </script>
+  </body>
 </html>

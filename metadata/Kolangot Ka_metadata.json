@@ -1,0 +1,19 @@
+{
+  "name": "2024 HAU Blockchain Event Attendance Certificate",
+  "description": "This NFT represents attendance for the 2024 HAU Blockchain Event.",
+  "image": "ipfs://QmWisCtazHSZsTGUeeaaNTNgncoDKdi73Qd4FNtEEv2NuG",
+  "attributes": [
+    {
+      "trait_type": "Recipient Name",
+      "value": "Kolangot Ka"
+    },
+    {
+      "trait_type": "Event Date",
+      "value": "2024-10-17"
+    },
+    {
+      "trait_type": "Certificate ID",
+      "value": "252323"
+    }
+  ]
+}

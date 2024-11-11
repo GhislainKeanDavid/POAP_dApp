@@ -1,0 +1,19 @@
+{
+  "name": "2024 HAU Blockchain Event Attendance Certificate",
+  "description": "This NFT represents attendance for the 2024 HAU Blockchain Event.",
+  "image": "ipfs://QmcbMBuhpzDjnRiMHGFjCxQzojLJSeJBXSnE6HMSmDUzLS",
+  "attributes": [
+    {
+      "trait_type": "Recipient Name",
+      "value": "Gabrielle Dometita"
+    },
+    {
+      "trait_type": "Event Date",
+      "value": "2024-10-18"
+    },
+    {
+      "trait_type": "Certificate ID",
+      "value": "59519"
+    }
+  ]
+}

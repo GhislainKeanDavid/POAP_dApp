@@ -1,0 +1,19 @@
+{
+  "name": "2024 HAU Blockchain Event Attendance Certificate",
+  "description": "This NFT represents attendance for the 2024 HAU Blockchain Event.",
+  "image": "ipfs://QmU5w6FJYTviH35uivQsteY3P2xx9YAdooGpVcJJKfXFPq",
+  "attributes": [
+    {
+      "trait_type": "Recipient Name",
+      "value": "Alex Indiongco"
+    },
+    {
+      "trait_type": "Event Date",
+      "value": "2024-10-17"
+    },
+    {
+      "trait_type": "Certificate ID",
+      "value": "996737"
+    }
+  ]
+}

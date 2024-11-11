@@ -1,0 +1,19 @@
+{
+  "name": "2024 HAU Blockchain Event Attendance Certificate",
+  "description": "This NFT represents attendance for the 2024 HAU Blockchain Event.",
+  "image": "ipfs://QmcDqG2RzH7Zj7HYNURtz9Gku5F8RKYRQN2UbYCm1g448N",
+  "attributes": [
+    {
+      "trait_type": "Recipient Name",
+      "value": "Ghislain David"
+    },
+    {
+      "trait_type": "Event Date",
+      "value": "2024-10-18"
+    },
+    {
+      "trait_type": "Certificate ID",
+      "value": "323980"
+    }
+  ]
+}
